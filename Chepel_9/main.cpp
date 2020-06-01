@@ -4,7 +4,7 @@
 using namespace std;
 
 //сортировка заданной колонки с заданным количеством элементов
-void sort(int** arr, int column, int size)
+void sort(int** matrix, int column, int size)
 {
 	//Сортировка пузырьком заданной колонки
 	bool sorted;
@@ -13,9 +13,9 @@ void sort(int** arr, int column, int size)
 		sorted = true;
 		for (int i = 1; i < size; ++i)
 		{
-			if (arr[i][column] < arr[i - 1][column])
+			if (matrix[i][column] < matrix[i - 1][column])
 			{
-				swap(arr[i][column], arr[i - 1][column]);
+				swap(matrix[i][column], matrix[i - 1][column]);
 				sorted = false;
 			}
 		}
@@ -36,7 +36,6 @@ void proc_matrix(int** matrix, int n, int m)
 int main()
 {
 	setlocale(LC_ALL, "russian");
-	srand(time(0));
 
 	cout << "Автор: Чепель Егор Максимович" << endl;
 	cout << "Программа для работы с матрицей с помощью функций" << endl;
