@@ -1,10 +1,10 @@
-#include <iomanip>
+﻿#include <iomanip>
 #include <iostream>
 
 using namespace std;
 
 //сортировка заданной колонки с заданным количеством элементов
-void sort(int** matrix, int column, int size)
+void sort(int* column, int size)
 {
 	//Сортировка пузырьком заданной колонки
 	bool sorted;
@@ -13,9 +13,9 @@ void sort(int** matrix, int column, int size)
 		sorted = true;
 		for (int i = 1; i < size; ++i)
 		{
-			if (matrix[i][column] < matrix[i - 1][column])
+			if (column[i] < column[i - 1])
 			{
-				swap(matrix[i][column], matrix[i - 1][column]);
+				swap(column[i], column[i - 1]);
 				sorted = false;
 			}
 		}
@@ -28,8 +28,21 @@ void proc_matrix(int** matrix, int n, int m)
 {
 	for (int i = 0; i < m; ++i)
 	{
-		//отсортировать [i] колонку, в которой n строк
-		sort(matrix, i, n);
+		int* column = new int[n];
+		// скопировать колонку
+		for (int j = 0; j < n; j++)
+		{
+			column[j] = matrix[j][i];
+		}
+		// отсортировать колонку
+		sort(column, n);
+
+		// переписать её обратно
+		for (int j = 0; j < n; j++)
+		{
+			matrix[j][i] = column[j];
+		}
+		delete [] column;
 	}
 }
 
@@ -46,11 +59,11 @@ int main()
 	cout << "Введите количество столбцов: ";
 	cin >> m;
 
-	int** matrix = new int*[n];//матрица (указатель на строки)
+	int** matrix = new int*[n]; //матрица (указатель на строки)
 
 	for (int i = 0; i < n; i++)
 	{
-		matrix[i] = new int[m];//выделяем память под строку
+		matrix[i] = new int[m]; //выделяем память под строку
 		for (int j = 0; j < m; j++)
 		{
 			cout << "Matr[" << i << "][" << j << "] = ";
