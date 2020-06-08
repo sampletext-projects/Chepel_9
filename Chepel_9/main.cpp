@@ -13,7 +13,7 @@ void sort(int* column, int size)
 		sorted = true;
 		for (int i = 1; i < size; ++i)
 		{
-			if (column[i] < column[i - 1])
+			if (column[i] > column[i - 1])
 			{
 				swap(column[i], column[i - 1]);
 				sorted = false;
